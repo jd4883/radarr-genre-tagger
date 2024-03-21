@@ -1,12 +1,14 @@
 import time
 import json
 import requests
+import pyarr.radarr.RadarrAPI
 
 
 class RadarrAPI(object):
 	def __init__(self, url: str, apikey: str):
 		self.host_url = url
 		self.api_key = apikey
+		self.api = RadarrAPI(host_url=url, api_key=apikey)
 
 	def radarr_api_request(self, url, request_type = "get", data = dict()):
 		backoff_timer = 2
@@ -44,6 +46,7 @@ class RadarrAPI(object):
 		return self.radarr_api_request(f"{self.host_url}/command/RescanMovie&movieId={movie_id}", "post", data)
 
 	def get_tags(self):
+    	return self.api.get_tags()
 		return self.radarr_api_request(f"{self.host_url}/tag")
 
 	def add_tag(self, tag: str):

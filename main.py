@@ -54,6 +54,8 @@ class Config:
 
     def write_tags(self):
         self.movies.tags = self.radarr.get_tags()
+        print(self.movies.tags)
+        breakpoint()
         previous_tags = self.movies.tags
         self.movies.tags = aggregate_tags(drop_tags=self.movies.drop_tags, input_tags=[movie.tags for movie in self.movies.aggregate])
         for movie in self.movies.aggregate:
@@ -69,7 +71,7 @@ class Config:
             movie.radarr.update({"tags": movie.tag_ids})
             try:
                 self.log.info(f"Tagging has started for {movie.title}:\t{movie.tags}")
-                self.log.debug(self.radarr.update_movie(movie_id=movie.id, data=movie.radarr))
+                self.log.info(self.radarr.update_movie(movie_id=movie.id, data=movie.radarr))
                 self.log.info(f"Tagging has completed for {movie.title}")
             except:
                 pass
