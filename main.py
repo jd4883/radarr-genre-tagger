@@ -41,15 +41,13 @@ class Config:
     def parser(self):
         for s in self.movies.movies:
             movie = Movie(s)
-            # TODO: better use anime here
-            print(movie.tags)
-            breakpoint()
-            if "anime" in self.tags:
+            if "anime" in movie.tags:
                 movie.tags += ["anime", "animated", "animation", "japanese"]
-                for anime in self.movies.anidb:
-                    if anime["title"] == movie.title:
-                        movie.tags += anime["tags"]
-                        break
+            for anime in self.movies.anidb:
+                # TODO: this  may require additional validation that drops the year suffix " (XXXX)" (the year) from the title match
+                if anime["title"] == movie.title:
+                    movie.tags += anime["tags"]
+                    break
             movie.tags = unique([cleanup_tags(tag=i, replacements=self.movies.replacement_tags) for i in sorted(list(set(movie.tags)))])
             self.movies.aggregate.append(movie)
         self.write_tags()
@@ -71,7 +69,7 @@ class Config:
             movie.radarr.update({"tags": movie.tag_ids})
             try:
                 self.log.info(f"Tagging has started for {movie.title}:\t{movie.tags}")
-                self.radarr.update_movie(series_id=movie.id, data=movie.radarr)
+                self.log.debug(self.radarr.update_movie(movie_id=movie.id, data=movie.radarr))
                 self.log.info(f"Tagging has completed for {movie.title}")
             except:
                 pass

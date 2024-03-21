@@ -12,14 +12,19 @@ class RadarrAPI(object):
 		backoff_timer = 2
 		payload = json.dumps(data)
 		request_payload = dict()
+		headers = {
+			'X-Api-Key': self.api_key,
+            "Content-Type": "application/json",
+            "accept": "application/json",
+		}
 		if request_type not in ["post", "put", "delete"]:
-			request_payload = requests.get(url, headers = { 'X-Api-Key': self.api_key }, data = payload)
+			request_payload = requests.get(url, headers = headers, data = payload)
 		elif request_type == "put":
-			request_payload = requests.put(url, headers = { 'X-Api-Key': self.api_key }, data = payload)
+			request_payload = requests.put(url, headers = headers, data = payload)
 		elif request_type == "post":
-			request_payload = requests.post(url, headers = { 'X-Api-Key': self.api_key }, data = payload)
+			request_payload = requests.post(url, headers = headers, data = payload)
 		elif request_type == "delete":
-			request_payload = requests.delete(url, headers = { 'X-Api-Key': self.api_key }, data = payload)
+			request_payload = requests.delete(url, headers = headers, data = payload)
 		time.sleep(backoff_timer)
 		return request_payload.json()
 
