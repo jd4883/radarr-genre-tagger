@@ -1,10 +1,10 @@
 import json
 import time
-
+from methods.radarr_api import RadarrAPI
 import requests
 
 
-class RadarrAPI(object):
+class Radarr(object):
 	def __init__(self, url: str, apikey: str):
 		self.host_url = url
 		self.api_key = apikey

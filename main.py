@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 import os
 from pathlib import Path
-
-from methods.radarr_api import RadarrAPI
+from methods.radarr_api import Radarr
 
 
 class Movies(object):
@@ -21,9 +20,7 @@ class Movies(object):
 		self.aggregate = list()
 		self.drop_tags = config.file["tagging"].get("drop", [])
 		self.replacement_tags = config.file["tagging"].get("replacements", {})
-		self.replacement_tags[
-			" "] = "_"  # this doesnt translate nice from a configmap so I injected it; besides tags don't accept
-	# spacing in radarr
+		self.replacement_tags[" "] = "_"  # this doesnt translate nice from a configmap so I injected it; besides tags don't accept spacing in radarr
 
 
 class Movie(object):
@@ -44,7 +41,7 @@ class Config:
 				}
 		self.log = logging
 		self.log.basicConfig(format = '%(levelname)s:%(message)s', level = logging.INFO)
-		self.radarr = RadarrAPI(url = os.environ["RADARR_URL"], apikey = os.environ["RADARR_API"])
+		self.radarr = Radarr(url = os.environ["RADARR_URL"], apikey = os.environ["RADARR_API"])
 		self.movies = Movies(config = self)
 		self.parser()
 	
