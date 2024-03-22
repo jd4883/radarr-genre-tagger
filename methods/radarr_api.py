@@ -1,6 +1,6 @@
 import json
 import time
-from methods.radarr_api import RadarrAPI
+from pyarr.radarr import RadarrAPI
 import requests
 
 
@@ -46,10 +46,15 @@ class Radarr(object):
 		return self.radarr_api_request(f"{self.host_url}/command/RescanMovie&movieId={movie_id}", "post", data)
 	
 	def get_tags(self):
-		return self.api.get_tags()
-		#return self.radarr_api_request(f"{self.host_url}/tag")
-
-
-def add_tag(self, tag: str):
-	data = json.dumps({"label": tag})
-	return self.radarr_api_request(url = f"{self.host_url}/tag", request_type = "post", data = data)
+		tags = self.api.get_tags()
+		api_tags = self.radarr_api_request(f"{self.host_url}/tag")
+		if tags == api_tags:
+			return tags
+		print(api_tags)
+		print(tags)
+		print("we have a difference from the desired")
+		breakpoint()
+	
+	def add_tag(self, tag: str):
+		data = json.dumps({"label": tag})
+		return self.radarr_api_request(url = f"{self.host_url}/tag", request_type = "post", data = data)
