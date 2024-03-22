@@ -1,3 +1,2 @@
 pyarr
 pyyaml
-requests
