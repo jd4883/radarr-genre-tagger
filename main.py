@@ -72,7 +72,7 @@ class Config:
 		movie.radarr.update({"tags": movie.tag_ids})
 		try:
 			self.log.info(f"Tagging has started for {movie.title}:\t{movie.tags}")
-			self.log.info(self.radarr.update_movie(movie_id = movie.id, data = movie.radarr))
+			self.log.debug(self.radarr.update_movie(movie_id = movie.id, data = movie.radarr))
 			self.log.info(f"Tagging has completed for {movie.title}")
 		except:
 			pass
@@ -94,7 +94,7 @@ def aggregate_tags(drop_tags: list, input_tags: list):
 def add_tags(tags: list, tagmap: object, radarr: object):
 	for tag in tags:
 		for i in tagmap:
-			if i.label == tag:
+			if i["label"] == tag:
 				try:
 					radarr.add_tag(tag)
 					logging.info(f"+ success adding tag {tag}")
