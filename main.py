@@ -53,6 +53,7 @@ class Config:
 					break
 			movie.tags = unique([cleanup_tags(tag = i, replacements = self.movies.replacement_tags) for i in sorted(list(set(movie.tags)))])
 			self.write_tags(movie)
+		self.log.info("Work Complete")
 	
 	def write_tags(self, movie):
 		previous_tags = self.movies.tags
