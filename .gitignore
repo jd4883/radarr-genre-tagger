@@ -1,0 +1,42 @@
+# Standardized .gitignore: tailored to this repo's contents.
+
+# ---- OS / editor cruft ----
+.DS_Store
+**/.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+
+# ---- Python: bytecode, caches, venv, build, secrets ----
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.env
+.env.*
+!.env.*.example
+
+# ---- AI / PR / review scratch: drafts that never belong in the repo ----
+PR_*.md
+PR_*.txt
+PR_BODY*
+REVIEW_CONSISTENCY*.md
+*CONSISTENCY-REPORT*
+migration.md
+MIGRATION.md
+RUN-TO-STRIP*.md
+*_upstream_values.txt
+.cruft.json
