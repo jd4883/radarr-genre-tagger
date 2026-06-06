@@ -1,6 +1,4 @@
-# Standard .gitignore for jd4883 Python app / container repos.
-# Glob-first; catches caches, build artifacts, envs, and AI/PR scratch markdown.
-# Lock files are left committed by default (we pin deps); see the locks block.
+# Standardized .gitignore: tailored to this repo's contents.
 
 # ---- OS / editor cruft ----
 .DS_Store
@@ -11,56 +9,27 @@ Desktop.ini
 *.swo
 *~
 .idea/
-.vscode/
 
-# ---- Python bytecode / caches ----
+# ---- Python: bytecode, caches, venv, build, secrets ----
 __pycache__/
 **/__pycache__/
 *.py[cod]
 *$py.class
-*.so
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-.dmypy.json
 .coverage
-.coverage.*
-coverage.xml
 htmlcov/
-.tox/
-.nox/
-.hypothesis/
-
-# ---- Build / packaging ----
-build/
-dist/
-*.egg-info/
-.eggs/
-*.egg
-wheels/
-
-# ---- Virtualenvs ----
 .venv/
 venv/
-env/
-ENV/
-
-# ---- Env / secrets ----
+*.egg-info/
+build/
+dist/
 .env
 .env.*
-!.env.example
+!.env.*.example
 
-# ---- Local data / logs ----
-*.log
-*.sqlite3
-db.sqlite3*
-
-# ---- Lock files (keep committed if you pin deps; uncomment to ignore) ----
-# poetry.lock
-# uv.lock
-# Pipfile.lock
-
-# ---- AI / PR / review scratch — drafts that never belong in the repo ----
+# ---- AI / PR / review scratch: drafts that never belong in the repo ----
 PR_*.md
 PR_*.txt
 PR_BODY*
@@ -69,4 +38,5 @@ REVIEW_CONSISTENCY*.md
 migration.md
 MIGRATION.md
 RUN-TO-STRIP*.md
+*_upstream_values.txt
 .cruft.json
